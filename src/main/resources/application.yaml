@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ${APP_ID:ms-employee-vacation}
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRES_URL}:${POSTGRES_PORT}/${POSTGRES_MAIN_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}

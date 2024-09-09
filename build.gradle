@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+group = 'org.example'
+version = gradle.ext.VERSION
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.boot:spring-boot-dependencies:3.2.2'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jetty'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //database
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.liquibase:liquibase-core'
+    implementation 'org.hibernate:hibernate-validator:8.0.1.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+
+    //swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
+    //test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+tasks.withType(JavaCompile).tap {
+    configureEach {
+        options.encoding = 'UTF-8'
+    }
+}
