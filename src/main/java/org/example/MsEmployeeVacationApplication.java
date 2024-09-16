@@ -17,5 +17,4 @@ public class MsEmployeeVacationApplication {
     public static void main(String[] args) {
         SpringApplication.run(MsEmployeeVacationApplication.class, args);
     }
-
 }
